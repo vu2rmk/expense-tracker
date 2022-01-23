@@ -23,4 +23,11 @@ public class MasterController {
         mov.addObject("expenses",expenses);
         return mov;
     }
+
+    @RequestMapping("/expense")
+    public ModelAndView addExpense(){
+        ModelAndView mov = new ModelAndView("expense");
+        mov.addObject("expense",new Expense());
+        return mov;
+    }
 }
