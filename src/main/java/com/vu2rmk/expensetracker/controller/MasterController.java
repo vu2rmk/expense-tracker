@@ -4,7 +4,9 @@ import com.vu2rmk.expensetracker.model.Expense;
 import com.vu2rmk.expensetracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,5 +31,12 @@ public class MasterController {
         ModelAndView mov = new ModelAndView("expense");
         mov.addObject("expense",new Expense());
         return mov;
+    }
+
+    @RequestMapping(value="/expense", method = RequestMethod.POST)
+    public String save(@ModelAttribute("expense") Expense expense){
+        expense.setCreatedAt(System.currentTimeMillis());
+        expenseService.save(expense);
+        return "redirect:/";
     }
 }
